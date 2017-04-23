@@ -5,6 +5,7 @@ PX_HEIGHT = 10
 PX_WIDTH = 10
 BG_PASSED="#00bb00"
 
+
 def breadth_first_search(maze: list, root: tkinter.Tk = None):
     """
     Breadth first search maze solver

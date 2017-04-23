@@ -1,4 +1,5 @@
 import tkinter
+from lib.astar import *
 from lib.bfs import *
 from lib.dfs import *
 from lib.PrimsAlgorithm import *
@@ -35,4 +36,5 @@ if __name__ == "__main__":
     root.update()
     depth_first_search(mat, root)
     breadth_first_search(mat, root)
+    a_star_search(mat, root)
     root.mainloop()
