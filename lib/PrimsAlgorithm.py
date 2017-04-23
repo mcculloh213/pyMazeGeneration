@@ -116,4 +116,27 @@ def model(grid: list, order: list, height: int, width: int) -> list:
                 continue
         order.reverse()
 
+    start = random.randint(0, 99)
+    end = random.randint(0, 99)
+    if start < 50:
+        rndX = random.randint(1, (nX - 2))
+        while mat[1][rndX] != 1:
+            rndX = random.randint(1, (nX - 2))
+        mat[0][rndX] = 1
+    else:
+        rndY = random.randint(1, (nY - 2))
+        while mat[rndY][1] != 1:
+            rndY = random.randint(1, (nY - 2))
+        mat[rndY][0] = 1
+    if end < 50:
+        rndX = random.randint(1, (nX - 2))
+        while mat[nY-2][rndX] != 1:
+            rndX = random.randint(1, (nX - 2))
+        mat[nY - 1][rndX] = 1
+    else:
+        rndY = random.randint(1, (nY - 2))
+        while mat[rndY][nX - 2] != 1:
+            rndY = random.randint(1, (nY - 2))
+        mat[rndY][nX - 1] = 1
+
     return mat

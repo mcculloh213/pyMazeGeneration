@@ -1,9 +1,9 @@
 import tkinter
 from lib.PrimsAlgorithm import *
 
-HEIGHT = 10
+HEIGHT = 50
 PX_HEIGHT = 10
-WIDTH = 20
+WIDTH = 50
 PX_WIDTH = 10
 MARKED = 0
 
