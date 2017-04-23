@@ -1,9 +1,11 @@
 import tkinter
+from lib.bfs import *
+from lib.dfs import *
 from lib.PrimsAlgorithm import *
 
-HEIGHT = 50
+HEIGHT = 20
 PX_HEIGHT = 10
-WIDTH = 50
+WIDTH = 20
 PX_WIDTH = 10
 MARKED = 0
 
@@ -30,4 +32,7 @@ if __name__ == "__main__":
                 tkinter.Canvas(root, bd=0, highlightthickness=0, bg='blue',
                                height=PX_HEIGHT, width=PX_WIDTH).grid(row=i, column=j)
 
+    root.update()
+    depth_first_search(mat, root)
+    breadth_first_search(mat, root)
     root.mainloop()
