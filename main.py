@@ -3,21 +3,21 @@ from lib.PrimsAlgorithm import *
 
 HEIGHT = 10
 PX_HEIGHT = 10
-WIDTH = 10
+WIDTH = 20
 PX_WIDTH = 10
 MARKED = 0
 
 if __name__ == "__main__":
     root = tkinter.Tk()
     g = generate_grid(HEIGHT, WIDTH)
-    mark(g)
+    order = []
+    mark(g, order)
     MARKED += 1
     while MARKED < HEIGHT * WIDTH:
         fr = generate_fringe(g)
-        mark(g, fr)
+        mark(g, order, fr)
         MARKED += 1
-    print_grid(g)
-    mat = model(g, HEIGHT, WIDTH)
+    mat = model(g, order, HEIGHT, WIDTH)
     for i in range(0, len(mat)):
         for j in range(0, len(mat[i])):
             if mat[i][j] == 0:

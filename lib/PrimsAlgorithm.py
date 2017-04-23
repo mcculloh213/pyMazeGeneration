@@ -24,14 +24,16 @@ def generate_grid(height: int, width: int) -> list:
     return grd
 
 
-def mark(grid: list, fringe: list = None):
+def mark(grid: list, order: list, fringe: list = None):
     if fringe is not None:
         n = random.choice(fringe)
-        n.visited = 1
+        n.degree += 1
     else:
         subList = random.choice(grid)
         n = random.choice(subList)
-        n.visited = 1
+
+    n.visited = 1
+    order.append(n)
 
 
 def generate_fringe(grid: list) -> list:
@@ -62,38 +64,56 @@ def print_grid(grid: list):
         print("")
 
 
-def model(grid: list, height: int, width: int) -> list:
+def model(grid: list, order: list, height: int, width: int) -> list:
     nX = (2 * width) + 1
     nY = (2 * height) + 1
     mat = []
+
     for r in range(0, nY):
         vec = []
         for c in range(0, nX):
             if r == 0 or r == (nY - 1) or c == 0 or c == (nX - 1):
                 vec.append(0)
             else:
-                nR = math.floor((r - 1) / 2)
-                nC = math.floor((c - 1) / 2)
+                nR = int(math.floor((r - 1) / 2))
+                nC = int(math.floor((c - 1) / 2))
                 if grid[nR][nC].visited == 1 and c % 2 == 1 and r % 2 == 1:
                     vec.append(1)
                 else:
-                    vec.append(-1)
+                    vec.append(0)
         mat.append(vec)
 
-    return mat
+    edges = 0
+    while len(order) > 1:
+        n1 = order.pop()
+        order.reverse()
+        for n in order:
+            p1 = (-1, -1)
+            p2 = (-1, -1)
+            for r in range(0, len(grid)):
+                for c in range(0, len(grid[r])):
+                    if n1 is grid[r][c]:
+                        p1 = ((2 * r) + 1, (2 * c) + 1)
+                    if n is grid[r][c]:
+                        p2 = ((2 * r) + 1, (2 * c) + 1)
+            if abs((p2[0] - p1[0]) / 2) == 1 and abs((p2[1] - p1[1]) / 2) == 0:
+                if n1.isNorthOf(n):
+                    mat[p1[0] + 1][p1[1]] = 1
+                elif n1.isSouthOf(n):
+                    mat[p2[0] + 1][p2[1]] = 1
+                else:
+                    print("Uh oh")
+                break
+            elif abs((p2[1] - p1[1]) / 2) == 1 and abs((p2[0] - p1[0]) / 2) == 0:
+                if n1.isEastOf(n):
+                    mat[p2[0]][p2[1] + 1] = 1
+                elif n1.isWestOf(n):
+                    mat[p2[0]][p2[1] - 1] = 1
+                else:
+                    print("Uh oh.")
+                break
+            else:
+                continue
+        order.reverse()
 
-# if __name__ == "__main__":
-#     marked = 0
-#     g = generate_grid(3, 3)
-#     print_grid(g)
-#     print()
-#     mark(g)
-#     print_grid(g)
-#     print()
-#     marked += 1
-#     while (marked < 3 * 3):
-#         fr = generate_fringe(g)
-#         mark(g, fr)
-#         print_grid(g)
-#         print()
-#         marked += 1
+    return mat
