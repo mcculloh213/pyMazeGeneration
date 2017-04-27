@@ -2,6 +2,9 @@ import binascii
 import os
 
 class Node(object):
+    """
+    Node data structure
+    """
     def __init__(self):
         self.__north = None
         self.__south = None
