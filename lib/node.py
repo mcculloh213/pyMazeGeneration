@@ -3,7 +3,7 @@ import os
 
 class Node(object):
     """
-    Node data structure
+    Node data structure, modeling a vertex in a graph, specifically a vertex in a grid graph.
     """
     def __init__(self):
         self.__north = None
